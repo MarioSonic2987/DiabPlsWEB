@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="text-left">
+        <div class="row">
+            <h2>
+                <%= title %>
+            </h2>
+            <p><%= user %> - Rol: <%= rol %></p>
+            <div class="container text-center">
+                <button type="button" id="increase" onclick="aumentarTamanoTexto();">Aumentar tamaño texto</button>
+                <button type="button" id="decrease" onclick="reducirTamanoTexto();">Reducir tamaño texto</button>
+            </div>
+            <div class="container text-center">
+                <button type="button" class="btn btn-primary texto" onclick="location.href='/home';">VOLVER</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <form action="insert_data" method="post">
+        <% var messages = getMessages() %>
+
+        <% if (messages.error){ %>
+            <h3><%= messages.error %></h3>
+            <% } else if(messages.exito){ %> 
+                <h3><%= messages.exito %></h3>
+        <% } %>
+        <div class="mb-3">
+            <select name="id_paciente" class="form-control container texto" id="id_paciente">
+                
+                <% for(let i = 0; i < results.length; i++){ %>
+                <option value="<%= results[i].id_usuario %>"><%= results[i].nombre %> <%= results[i].apellidos %> (<%= results[i].nombre_usuario %>)</option>
+                <% } %>
+            </select>
+        </div>
+        <div class="mb-3">
+
+            <input type="number" class="form-control container texto" name="sensibilidad" id="sensibilidad"
+                placeholder="Sensibilidad" value="<%= messages.sensibilidad %>" required>
+        </div>
+        <div class="mb-3">
+            <input type="number" class="form-control container texto" name="glucosa" id="glucosa" placeholder="Glucosa"
+            value="<%= messages.glucosa %>" required>
+        </div>
+        <div class="mb-3">
+        <input type="text" class="form-control container texto" name="hidratos" id="hidratos" placeholder="Hidratos" value="<%= messages.hidratos %>" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control container texto" name="insulina" id="insulina" placeholder="Ratio de insulina" value="<%= messages.insulina %>" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control container texto" name="comentario" id="comentario" placeholder="Comentario" value="<%= messages.comentario %>" required>
+    </div>
+    <hr>
+    <div class="container text-center">
+        <button type="submit" class="btn btn-primary texto">Insertar datos</button>
+    </div>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+    <script>
+        var esTextoGrande = false;
+        function aumentarTamanoTexto() {
+        let demo_paragraph = document.getElementsByClassName('texto');
+            for (let i = 0; i< demo_paragraph.length; i++){
+                    demo_paragraph[i].style.fontSize = "150%";
+                    esTextoGrande = true;
+
+            }
+    } 
+    function reducirTamanoTexto() {
+        let demo_paragraph = document.getElementsByClassName('texto');
+            for (let i = 0; i< demo_paragraph.length; i++){
+                    demo_paragraph[i].style.fontSize = "100%";
+                    esTextoGrande = false;
+
+            }
+    }  
+    </script>
+</html>

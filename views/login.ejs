@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="text-left">
+        <div class="row">
+            <h2>
+                <%= title %>
+            </h2>
+        </div>
+    </div>
+    <hr>
+    <form action="/login" method="post">
+        <% var messages = getMessages() %>
+
+        <% if (messages.error){ %>
+            <h3><%= messages.error %></h3>
+            <% } else if(messages.exito){ %> 
+                <h3><%= messages.exito %></h3>
+        <% } %>
+        <div class="mb-3">
+            <select name="id_usuario" class="form-control container texto" id="id_usuario">
+                <% for(let i = 0; i < results.length; i++){ %>
+                <option value="<%= results[i].nombre_usuario %>"><%= results[i].nombre %> <%= results[i].apellidos %> (<%= results[i].nombre_usuario %>)</option>
+                <% } %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control container" id="password" placeholder="Contraseña">
+        </div>
+        <div class="container text-center">
+            <button type="submit" class="btn btn-primary texto">Iniciar sesión</button>
+        </div>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+
+</html>

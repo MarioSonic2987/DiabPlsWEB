@@ -1,0 +1,35 @@
+{
+  "name": "sevidor_restful",
+  "description": "Servidor RESTful",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "MS2987",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.27.0",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "datatables.net-dt": "^1.13.4",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.9",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-flash-messages": "^0.1.1",
+    "express-session": "^1.17.3",
+    "express-sessions": "^1.0.6",
+    "express-validator": "^6.15.0",
+    "google-auth-library": "^7.9.1",
+    "jquery": "^3.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.7",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.13",
+    "uuid": "^8.3.2"
+  }
+}
