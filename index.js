@@ -279,6 +279,74 @@ app.post('/create_user', function (req, res) {
     }
 });
 
+app.get('/update_user', function (req, res) {
+    const query = `select * from usuarios`;
+    console.log(req.session.loggedin);
+    if (req.session.loggedin) {
+        if (req.session.rol == "Administrador") {
+            connection.query(query, (err, results) => {
+                if (err) {
+                    console.log(err.message);
+                }
+
+                res.render('update_user.ejs', { title: 'Modificar usuario', results: results, user: req.session.username, rol: req.session.rol });
+            });
+        }
+    } else {
+        res.redirect("/login");
+    }
+
+
+});
+
+app.post('/update_user', function (req, res) {
+    const uri = "/update_user";
+
+    const id_usuario = req.body.id_usuario;
+    const nombre_real = req.body.nombre_real;
+    const apellidos = req.body.apellidos;
+    const password = req.body.password;
+    const password_repe = req.body.password_repe;
+    let passwd = crypto.createHmac('sha256', secretoProhibido).update(password).digest('hex');
+    const fecha_nacimiento = req.body.fecha_nacimiento;
+    const dni = req.body.dni;
+
+    let query = `UPDATE usuarios SET nombre = '${nombre_real}', apellidos = '${apellidos}', password = '${passwd}', fecha_nacimiento = "${fecha_nacimiento}", DNI = '${dni}'
+                where id_usuario = ${id_usuario}`;
+
+    if (password != password_repe) {
+
+        req.flash("error", "Las contraseñas no coinciden.");
+        req.flash("nombre_real", nombre_real);
+        req.flash("apellidos", apellidos);
+        req.flash("password", password);
+        req.flash("password_repe", password_repe);
+        req.flash("fecha_nacimiento", fecha_nacimiento);
+        req.flash("dni", dni);
+        return res.redirect(uri);
+
+    } else {
+
+        connection.query(query, (err, results) => {
+            if (err) {
+                console.log(err.message);
+                req.flash("error", err.message);
+                req.flash("nombre_real", nombre_real);
+                req.flash("apellidos", apellidos);
+                req.flash("password", password);
+                req.flash("password_repe", password_repe);
+                req.flash("fecha_nacimiento", fecha_nacimiento);
+                req.flash("dni", dni);
+                return res.redirect(uri);
+            }
+            console.log('Row modified:' + results.affectedRows);
+            req.flash("exito", "Usuario modificado correctamente");
+            return res.redirect(uri);
+
+        });
+    }
+});
+
 app.get('/delete_user', function (req, res) {
     const query = `select * from usuarios`;
     console.log(req.session.loggedin);

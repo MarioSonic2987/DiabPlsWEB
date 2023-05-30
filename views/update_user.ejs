@@ -35,16 +35,19 @@
         <% } else if(messages.exito){ %> 
             <h3><%= messages.exito %></h3>
     <% } %>
-    <form action="/create_user" method="post">
+    <form action="/update_user" method="post">
+        <div class="mb-3">
+            <select class="texto form-control container" name="id_usuario" id="id_usuario">
+                <% for(let i = 0; i < results.length; i++){ %>
+                    <option  value="<%= results[i].id_usuario %>"><%= results[i].nombre %> <%= results[i].apellidos %> (<%= results[i].nombre_usuario %>)</option>
+                    <% } %>
+            </select>
+        </div>
         <div class="mb-3">
             <input type="text" name="nombre_real"  class="form-control container texto" id="nombre_real" placeholder="Nombre" value="<%= messages.nombre_real %>" required>
         </div>
         <div class="mb-3">
             <input type="text" class="form-control container texto" name="apellidos" id="apellidos" placeholder="Apellidos" value="<%= messages.apellidos %>" required>
-        </div>
-        <div class="mb-3">
-            <input type="text" class="form-control container texto" name="username" id="username"
-                placeholder="Nombre de usuario" value="<%= messages.username %>" required>
         </div>
         <div class="mb-3">
             <input type="password" class="form-control container texto" name="password" id="password"
@@ -60,15 +63,10 @@
         <div class="mb-3">
         <input type="text" class="form-control container texto" name="dni" id="dni" minlength="9" placeholder="DNI (12345678A)" value="<%= messages.dni %>" required>
     </div>
-        <div class="mb-3">
-            <select name="rol" class="form-control container texto" id="rol">
-                <option value="Paciente">Paciente</option>
-                <option value="Administrador">Administrador</option>
-            </select>
-        </div>
+        
         <hr>
         <div class="container text-center texto">
-            <button type="submit" class="btn btn-primary texto">CREAR USUARIO</button>
+            <button type="submit" class="btn btn-primary texto">MODIFICAR USUARIO</button>
         </div>
     </form>
 </body>
