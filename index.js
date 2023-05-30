@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const session = require('express-session');
 var flash = require('express-flash-messages');
+const fs = require('fs');
 const dotenv = require('dotenv');
 
 var app = express();
@@ -50,6 +51,11 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get('/download', function(req, res){
+    const file = `./backups/backup_${req.session.username}.txt`;
+    res.download(file); // Set disposition and send it.
+  })
+
 app.get('/home', function (req, res) {
     console.log(req.session.loggedin);
     if (req.session.loggedin) {
@@ -65,6 +71,13 @@ app.get('/home', function (req, res) {
             if (err) {
                 console.log(err.message);
             }
+
+            try {
+                fs.writeFileSync(`./backups/backup_${req.session.username}.txt`, JSON.stringify(results),{ flag: 'w+' });
+                // file written successfully
+              } catch (err) {
+                console.error(err);
+              }
 
             // Output username
             res.render('index.ejs', { title: 'Registro de datos', results: results, user: req.session.username, rol: req.session.rol });
