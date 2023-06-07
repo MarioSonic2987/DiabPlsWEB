@@ -348,7 +348,7 @@ app.post('/update_user', function (req, res) {
 });
 
 app.get('/delete_user', function (req, res) {
-    const query = `select * from usuarios`;
+    const query = `select * from usuarios where rol = 'Paciente'`;
     console.log(req.session.loggedin);
     if (req.session.loggedin) {
         if (req.session.rol == "Administrador") {
